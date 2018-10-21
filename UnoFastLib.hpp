@@ -67,7 +67,7 @@ static inline uint8_t dreadF_() {
 
 } // namespace
 
-#define digitalWriteFast(pin, val) do{UnoFastLib::dwriteF_<pin, val>()}while(0)
+#define digitalWriteFast(pin, val) do{UnoFastLib::dwriteF_<pin, val>();}while(0)
 #define digitalReadFast(pin) (UnoFastLib::dreadF_<pin>())
 
 #endif
