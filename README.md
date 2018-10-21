@@ -10,6 +10,6 @@ Both `pin` and `val` must be constant values.
 
 ### digitalReadFast(pin)
 
-The operation is the same as `digitalRead(pin, val)`.  
+The operation is the same as `digitalRead(pin)`.  
 `pin` must be a constant value.
 
