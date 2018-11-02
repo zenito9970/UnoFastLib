@@ -1,0 +1,2 @@
+digitalWriteFast	KEYWORD2
+digitalReadFast	KEYWORD2

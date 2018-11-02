@@ -1,14 +1,8 @@
 # UnoFastLib
 Library to do replace with constant expression at compile time for Arduino UNO (ATmega328P) C++14 compiler
 
-## Usage
-
 **!!Warning!!**  
 I only checked the operation with Arduino IDE 1.8.7 on Windows 10.
-
-1. Enable C++14 compilation: Rewrite `-std=gnu++11` of `compiler.cpp.flags` in `Program Files (x86)/Arduino/hardware/arduino/avr/platform.txt` to `-std=c++14`.
-1. `$ git clone https://github.com/zenito9970/UnoFastLib.git` in the project directory.
-1. Add `#include "UnoFastLib/UnoFastLib.hpp"` at the beginning of the source code.
 
 ## Methods
 
@@ -22,3 +16,32 @@ Both `pin` and `val` must be constant values.
 The operation is the same as `digitalRead(pin)`.  
 `pin` must be a constant value.
 
+## Example
+
+```c
+#include <UnoFastLib.hpp>
+constexpr uint8_t SW = 8;
+constexpr uint8_t LED = 13;
+uint32_t cnt = 0, i;
+bool p = false;
+void setup() {
+  Serial.begin(9600);
+  pinMode(LED, OUTPUT);
+  pinMode(SW, INPUT_PULLUP);
+}
+void loop() {
+  cnt = 0;
+  while (digitalReadFast(SW) == HIGH);
+  while (digitalReadFast(SW) == LOW)  ++cnt;
+  Serial.println(cnt);
+  for (i = 0; i < cnt; ++i) {
+    p = !p;
+    if (p) digitalWriteFast(LED, HIGH);
+    else  digitalWriteFast(LED, LOW);
+
+    // WARNING!!  This code is compile error.
+    // digitalWriteFast(LED, p);
+  }
+  digitalWriteFast(LED, LOW);
+}
+```
